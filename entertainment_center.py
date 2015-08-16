@@ -31,15 +31,15 @@ for row in range(1,sheet.nrows):
         row_list.append(sheet.cell_value(row, col))
     if row_list[0] == "Movie":
         print "This is a Movie"
-        movie_dict[movie_string_int] = media.Video(row_list[1],row_list[2],row_list[3],row_list[4])
+        movie_dict[movie_string_int] = media.Video(row_list[1],row_list[2],row_list[3])
         movie_string_int += 1
     elif row_list[0] == "TVShow":
         print "This is a TV Show"
-        tvshow_dict[tvshow_string_int] = media.Video(row_list[1],row_list[2],row_list[3],row_list[4])
+        tvshow_dict[tvshow_string_int] = media.Video(row_list[1],row_list[2],row_list[3])
         tvshow_string_int += 1
     elif row_list[0] == "Game":
         print "This is a Game"
-        game_dict[game_string_int] = media.Video(row_list[1],row_list[2],row_list[3],row_list[4])
+        game_dict[game_string_int] = media.Video(row_list[1],row_list[2],row_list[3])
         game_string_int += 1
     else:
         print "there was an error with this one... NO TYPE FOUND. this will not be appended."

@@ -5,11 +5,10 @@ import webbrowser
 #to suit more than Movies -- also variable names have been simplified for easier access. 
 class Video():
     """This class provides a way to store video related information"""
-    def __init__(self, title, poster, trailer, storyline):
+    def __init__(self, title, poster, trailer):
         self.title = title
         self.poster = poster
         self.trailer = trailer
-        self.storyline = storyline	
     
     def show_trailer(self):
         webbrowser.open(self.trailer)
@@ -20,4 +19,3 @@ class Video():
         print self.title
         print self.poster
         print self.trailer
-        print self.storyline
