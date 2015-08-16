@@ -3,6 +3,7 @@ import trailer_land
 import xlrd
 import re
 # PLEASE NOTE -- xlrd MUST BE INSTALLED for this to work -- 
+# You can do this through 'pip install xlrd' in command prompt, or visit
 # the data is pulled from an .xls sheet as a way to conveniently add and remove items.
 
 #This file will first look through the data within 'trailerWebsiteData.xls', make the appropriate class for the appropriate video type, 
@@ -19,6 +20,10 @@ tvshow_dict = {}
 tvshow_string_int = 0
 game_dict = {}
 game_string_int = 0
+
+# For this section we are using movie_dict[movie_string_int] often because movie_dict is a dictionary pointing to the memory location of
+# each of the classes. It is dynamically generated, meaning we can have any amount of items, and a class will always be created for it.
+# the [movie_string_int] itself is just a number spanning from 0 to the length of the dictionary.
 
 for row in range(1,sheet.nrows):
     row_list = []
@@ -37,8 +42,10 @@ for row in range(1,sheet.nrows):
         game_dict[game_string_int] = media.Video(row_list[1],row_list[2],row_list[3],row_list[4])
         game_string_int += 1
     else:
-        print "there was an error with this one..."
+        print "there was an error with this one... NO TYPE FOUND. this will not be appended."
 
+#This is the function that makes all the magic happen. By parsing the three dictionaries, trailer_land.py is able to generate
+#the webpage flawlessly for any amount of data.
 trailer_land.open_movies_page(movie_dict,tvshow_dict,game_dict)
 
 #for i in movie_dict:

@@ -15,6 +15,7 @@ class Video():
         webbrowser.open(self.trailer)
         
     #quick way to print all information of the object
+    #this was only used for debugging purposes, and does not show in the actual code.
     def print_info(self):
         print self.title
         print self.poster

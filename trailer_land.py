@@ -75,11 +75,12 @@ main_page_head = '''
             }));
         });
         // Animate in the movies when the page loads
-        <!-- $(document).ready(function () {
+        // This has been altered to account for the new sections.
+        $(document).ready(function () {
           $('.movie-tile').hide().first().show("fast", function showNext() {
-            $(this).next("div").show("fast", showNext);
+            $(this).next().show("fast", showNext);
          });
-        }); -->
+        });
     </script>
 </head>
 '''
@@ -99,6 +100,11 @@ main_page_content = '''
             <img src="https://lh5.ggpht.com/v4-628SilF0HtHuHdu5EzxD7WRqOrrTIDi_MhEG6_qkNtUK5Wg7KPkofp_VJoF7RS2LhxwEFCO1ICHZlc-o_=s0#w=24&h=24"/>
           </a>
           <div class="scale-media" id="trailer-video-container">
+          </div>
+          <div class="modal-body:">
+             <div class="row">
+                <p>Stuff</p>
+             </div>
           </div>
         </div>
       </div>
@@ -151,6 +157,8 @@ movie_tile_content = '''
 
 def create_movie_tiles_content(videos):
     # The HTML content for this section of the page
+    # For this section we are using videos[i] often because videos is actually a dictionary pointing to the memory location of
+    # classes. the [i] itself is just a number spanning from 0 to the length of the dictionary.
     content = ''
     for i in videos:
         print videos[i].title
@@ -173,6 +181,7 @@ def open_movies_page(movies,tvshows,games):
   output_file = open('trailer_land.html', 'w')
 
   # Replace the placeholder for the movie tiles with the actual dynamically generated content
+  # Because of the additional sections, I needed to add these additional parameters.
   rendered_content = main_page_content.format(movie_tiles=create_movie_tiles_content(movies),
                                               tvshow_tiles=create_movie_tiles_content(tvshows),
                                                 game_tiles=create_movie_tiles_content(games)
