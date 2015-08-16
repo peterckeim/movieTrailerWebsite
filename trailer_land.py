@@ -101,11 +101,6 @@ main_page_content = '''
           </a>
           <div class="scale-media" id="trailer-video-container">
           </div>
-          <div class="modal-body:">
-             <div class="row">
-                <p>Stuff</p>
-             </div>
-          </div>
         </div>
       </div>
     </div>
