@@ -1,14 +1,22 @@
 import webbrowser
 
-class Movie():
-	"""This class provides a way to store movie related information"""
-	VALID_RATINGS = ["G","PG","PG-13","R"]
-	
-	def __init__(self, movie_title, movie_storyline, poster_image, trailer_youtube):
-		self.title = movie_title
-		self.storyline = movie_storyline
-		self.poster_image_url = poster_image
-		self.trailer_youtube_url = trailer_youtube
-	
-	def show_trailer(self):
-		webbrowser.open(self.trailer_youtube_url)
+#This file contains the classes which will be used in the entertainment_center.py file.
+#The code was originally made in the udacity supplemental course on fundamentals of Python, and has been altered
+#to suit more than Movies -- also variable names have been simplified for easier access. 
+class Video():
+    """This class provides a way to store video related information"""
+    def __init__(self, title, poster, trailer, storyline):
+        self.title = title
+        self.poster = poster
+        self.trailer = trailer
+        self.storyline = storyline	
+    
+    def show_trailer(self):
+        webbrowser.open(self.trailer)
+        
+    #quick way to print all information of the object
+    def print_info(self):
+        print self.title
+        print self.poster
+        print self.trailer
+        print self.storyline

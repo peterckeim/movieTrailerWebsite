@@ -2,11 +2,13 @@ import webbrowser
 import os
 import re
 
+# The base of this file is the fresh_tomatoes.py file given to us by Udacity through the Programming Foundations with Python course.
+# It has been tweaked in select areas to suit the additions
 # Styles and scripting for the page
 main_page_head = '''
 <head>
     <meta charset="utf-8">
-    <title>Fresh Tomatoes!</title>
+    <title>Trailer Land</title>
 
     <!-- Bootstrap 3 -->
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
@@ -73,16 +75,18 @@ main_page_head = '''
             }));
         });
         // Animate in the movies when the page loads
-        $(document).ready(function () {
+        <!-- $(document).ready(function () {
           $('.movie-tile').hide().first().show("fast", function showNext() {
             $(this).next("div").show("fast", showNext);
-          });
-        });
+         });
+        }); -->
     </script>
 </head>
 '''
 
 # The main page layout and title bar
+# in div class = "container" -- the {movie_titles} section will be replaced using the open_movies_page method, which will generate content using the 
+# create_movie_titles_content(movies) method. The movies variable is filled in using data from the separate .py file 'entertainment_center' which defines the video data.
 main_page_content = '''
 <!DOCTYPE html>
 <html lang="en">
@@ -105,50 +109,74 @@ main_page_content = '''
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">Fresh Tomatoes Movie Trailers</a>
+            <a class="navbar-brand" href="#"><b>Trailer Land Trailers</b></a>
           </div>
         </div>
       </div>
     </div>
     <div class="container">
+      <div class="row">
+         <div class="col-xs-12">
+          <h1>Movies</h1>
+         </div>
+      </div>
       {movie_tiles}
+      <hr>
+      <div class="row">
+         <div class="col-xs-12">
+          <h1>TV Shows</h1>
+         </div>
+      </div>
+      {tvshow_tiles}
+      <hr>
+      <div class="row">
+         <div class="col-xs-12">
+          <h1>Videogames</h1>
+         </div>
+      </div>
+      {game_tiles}
     </div>
   </body>
 </html>
 '''
 
 # A single movie entry html template
+# This entry of HTML will be appended for each entry
 movie_tile_content = '''
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
-    <img src="{poster_image_url}" width="220" height="342">
-    <h2>{movie_title}</h2>
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer}" data-toggle="modal" data-target="#trailer">
+    <img src="{poster}" width="220" height="342">
+    <h2>{title}</h2>
 </div>
 '''
 
-def create_movie_tiles_content(movies):
+def create_movie_tiles_content(videos):
     # The HTML content for this section of the page
     content = ''
-    for movie in movies:
+    for i in videos:
+        print videos[i].title
         # Extract the youtube ID from the url
-        youtube_id_match = re.search(r'(?<=v=)[^&#]+', movie.trailer_youtube_url)
-        youtube_id_match = youtube_id_match or re.search(r'(?<=be/)[^&#]+', movie.trailer_youtube_url)
+        youtube_id_match = re.search(r'(?<=v=)[^&#]+', videos[i].trailer)
+        youtube_id_match = youtube_id_match or re.search(r'(?<=be/)[^&#]+', videos[i].trailer)
         trailer_youtube_id = youtube_id_match.group(0) if youtube_id_match else None
 
         # Append the tile for the movie with its content filled in
         content += movie_tile_content.format(
-            movie_title=movie.title,
-            poster_image_url=movie.poster_image_url,
-            trailer_youtube_id=trailer_youtube_id
+            title=videos[i].title,
+            poster=videos[i].poster,
+            trailer=trailer_youtube_id
         )
+    print content
     return content
 
-def open_movies_page(movies):
+def open_movies_page(movies,tvshows,games):
   # Create or overwrite the output file
-  output_file = open('fresh_tomatoes.html', 'w')
+  output_file = open('trailer_land.html', 'w')
 
   # Replace the placeholder for the movie tiles with the actual dynamically generated content
-  rendered_content = main_page_content.format(movie_tiles=create_movie_tiles_content(movies))
-
+  rendered_content = main_page_content.format(movie_tiles=create_movie_tiles_content(movies),
+                                              tvshow_tiles=create_movie_tiles_content(tvshows),
+                                                game_tiles=create_movie_tiles_content(games)
+                                                )
   # Output the file
   output_file.write(main_page_head + rendered_content)
   output_file.close()
