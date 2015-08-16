@@ -42,3 +42,6 @@ To run the program, simply open any shell (I prefer Powershell or Spyder), navig
 Any amount of movies, tv shows, or games in the Excel data are able to be parsed through this program. **When editing the excel data, you must be sure to fill in all 4 columns (Type, Title, Poster, Trailer).** Currently the program does not have a catch for any missing data. Please be sure to also capitalize the first letter of the video type.
 
 I do not have plans on revamping this code further, unless it does not meet specifications. Please let me know what more I can do to help.
+
+Thank you,
+Peter Keim
